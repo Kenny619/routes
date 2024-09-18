@@ -3,9 +3,6 @@ import { sign } from "hono/jwt";
 import { setCookie } from "hono/cookie";
 import type { Context } from "hono";
 import { verifyPassword } from "../utils/password";
-import { renderer } from "../renderer";
-
-//app.use(renderer);
 
 export async function loginAuth(c: Context) {
 	const input = await c.req.parseBody();
@@ -14,11 +11,11 @@ export async function loginAuth(c: Context) {
 
 	console.log(input.password, adminHash);
 	if (await verifyPassword(input.password as string, adminHash as string)) {
-		console.log("login success");
 		const token = await sign({ id: "admin" }, c.env.JWT_SECRET as string);
+
 		setCookie(c, "admin", token, {
-			secure: false,
-			httpOnly: true,
+			secure: true,
+			httpOnly: false,
 			sameSite: "strict",
 			maxAge: 60 * 60 * 24,
 		});

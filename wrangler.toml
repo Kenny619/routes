@@ -1,6 +1,6 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "routes"
-main = "src/index.ts"
+main = "src/index.tsx"
 compatibility_date = "2024-09-09"
 
 # Automatically place your workloads in an optimal location to minimize latency.
@@ -16,7 +16,6 @@ compatibility_date = "2024-09-09"
 # Note: Use secrets to store sensitive data.
 # - https://developers.cloudflare.com/workers/configuration/secrets/
 # [vars]
-# MY_VARIABLE = "production_value"
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#workers-ai
@@ -35,10 +34,10 @@ compatibility_date = "2024-09-09"
 
 # Bind a D1 database. D1 is Cloudflare’s native serverless SQL database.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#d1-databases
-# [[d1_databases]]
-# binding = "MY_DB"
-# database_name = "my-database"
-# database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+ [[d1_databases]]
+ binding = "DB"
+ database_name = "routes"
+ database_id = "69490e9e-a46c-46a2-8741-cac39b832fa7"
 
 # Bind a dispatch namespace. Use Workers for Platforms to deploy serverless functions programmatically on behalf of your customers.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#dispatch-namespace-bindings-workers-for-platforms
@@ -67,9 +66,9 @@ compatibility_date = "2024-09-09"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#kv-namespaces
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[kv_namespaces]]
+binding = "KV"
+id = "e3d80c77efab4cf6b2234eefc9fdca59"
 
 # Bind an mTLS certificate. Use to present a client certificate when communicating with another service.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#mtls-certificates

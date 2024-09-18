@@ -12,3 +12,15 @@ export async function verifyPassword(
 ): Promise<boolean> {
 	return bcrypt.compare(password, hash);
 }
+
+export async function createKey(kv: KVNamespace, url: string) {
+	const uuid = crypto.randomUUID();
+	const key = uuid.substring(0, 6);
+	const result = await kv.get(key);
+	if (!result) {
+		await kv.put(key, url);
+	} else {
+		return await createKey(kv, url);
+	}
+	return key;
+}
