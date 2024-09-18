@@ -15,6 +15,8 @@ import { routes } from "./routes/routes";
 import { notFound } from "./notfound";
 interface Bindings extends CloudflareBindings {
 	JWT_SECRET: string;
+	GA_MEASUREMENT_ID: string;
+	GA_API_SECRET: string;
 	KV: KVNamespace;
 	DB: D1Database;
 }

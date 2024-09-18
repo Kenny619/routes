@@ -52,13 +52,32 @@ export async function redirect(c: Context) {
 		cd1: isMobile, // Custom dimension 1 (Mobile or not)
 	});
 
-	await fetch("https://www.google-analytics.com/collect", {
-		method: "POST",
-		body: params.toString(),
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded",
+	const res = await fetch(
+		`https://www.google-analytics.com/mp/collect?measurement_id=${c.env.GA_MEASUREMENT_ID}&api_secret=${c.env.GA_API_SECRET}`,
+		{
+			method: "POST",
+			body: JSON.stringify({
+				client_id: cid,
+				events: [
+					{
+						name: "page_view",
+						params: {
+							page_location: destination,
+							client_id: cid,
+							language: ln,
+							page_title: name,
+							user_agent: ua,
+						},
+					},
+				],
+			}),
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
 		},
-	});
+	);
+
+	console.log("GA res", res);
 
 	return c.redirect(destination);
 }
